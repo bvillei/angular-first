@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
+import {Article} from '../article';
 
 @Component({
   selector: 'app-news',
@@ -7,7 +8,7 @@ import {ApiService} from '../api.service';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
-  articles;
+  articles: Article[];
 
   constructor(private apiService: ApiService) { }
 
