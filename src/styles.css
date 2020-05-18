@@ -38,18 +38,15 @@ input[type="text"]{
 }
 
 .results {
-  width:80%;
-  margin: 120px auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.repo {
+.article {
   width: 100%;
   max-width: 400px;
-  padding-top: 20px;
   border-radius: 10px;
   margin: 10px;
   background: rgb(243, 243, 243);
@@ -58,13 +55,19 @@ input[type="text"]{
   box-shadow: 0px 10px 21px 0px rgba(214,214,214,1);
 }
 
-.repo h2 {
+.article h2 {
   width: 90%;
   margin: 0 auto;
   word-break: break-all;
 }
 
-.repo h2 > a {
+.article p {
+  width: 90%;
+  margin: 15px auto;
+  word-break: break-all;
+}
+
+.article a {
   color: rgb(0, 155, 103);
 }
 
@@ -84,6 +87,7 @@ input[type="text"]{
     loader
 */
 .lds-ellipsis {
+  justify-content: center;
   display: inline-block;
   position: relative;
   width: 64px;

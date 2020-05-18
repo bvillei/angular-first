@@ -10,7 +10,8 @@ export class SearchService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public baseUrl = 'https://api.github.com/search/repositories';
+  API_KEY = 'e1dc0f2120e848189bf7d2db280eeea4';
+  baseUrl = `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${this.API_KEY}`;
   public searchResults: any;
 
   // makes HTTP call to the api
@@ -24,7 +25,7 @@ export class SearchService {
       return this.httpClient.get(this.baseUrl, {params}).pipe(
         map(response => {
           console.log(response);
-          return this.searchResults = response["items"];
+          return this.searchResults = response["articles"];
         })
       );
     }

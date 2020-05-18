@@ -27,7 +27,7 @@ export class SearchComponent implements OnInit {
         console.log(e.target.value);
         return e.target.value;
       }),
-      debounceTime(400),
+      debounceTime(1000),
       distinctUntilChanged(),
       switchMap(term => {
         this.loading = true;
