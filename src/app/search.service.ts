@@ -11,7 +11,7 @@ export class SearchService {
   constructor(private httpClient: HttpClient) { }
 
   API_KEY = 'e1dc0f2120e848189bf7d2db280eeea4';
-  baseUrl = `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${this.API_KEY}`;
+  baseUrl = `https://newsapi.org/v2/everything?apiKey=${this.API_KEY}`;
   public searchResults: any;
 
   // makes HTTP call to the api
@@ -29,10 +29,5 @@ export class SearchService {
         })
       );
     }
-  }
-
-  // returns the response
-  public _searchEntries(term) {
-    return this.searchEntries(term);
   }
 }

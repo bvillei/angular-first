@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
       distinctUntilChanged(),
       switchMap(term => {
         this.loading = true;
-        return this.searchService._searchEntries(term);
+        return this.searchService.searchEntries(term);
       }),
       catchError(err => {
         console.log(err);

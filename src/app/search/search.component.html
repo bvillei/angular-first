@@ -3,7 +3,7 @@
     <label>
       <input type="text" (keyup)="searchTerm.next($event)" formControlName="search" placeholder="Search articles..."/>
 
-      <div *ngIf="loading">
+      <div class="loading" *ngIf="loading">
         <p class="search-message">Searching</p>
         <div class="lds-ellipsis">
           <div></div>
@@ -20,11 +20,7 @@
     <div class="results">
       <div class="article" *ngFor="let result of searchResults">
         <div>
-          <img loading="lazy" [attr.src]="result.urlToImage"
-               width="200"
-               height="auto"
-               alt="avatar"
-          />
+          <img loading="lazy" [attr.src]="result.urlToImage" alt="avatar" />
           <h2>{{ result.title }}</h2>
           <p>{{ result.description }}</p>
           <a href="{{ result.url }}">Read full article</a>
