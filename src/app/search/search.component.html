@@ -18,12 +18,12 @@
 
   <div *ngIf="searchResults">
     <div class="results">
-      <div class="article" *ngFor="let result of searchResults">
+      <div class="article" *ngFor="let article of searchResults">
         <div>
-          <img loading="lazy" [attr.src]="result.urlToImage" alt="avatar" />
-          <h2>{{ result.title }}</h2>
-          <p>{{ result.description }}</p>
-          <a href="{{ result.url }}">Read full article</a>
+          <img loading="lazy" [attr.src]="article.urlToImage" alt="avatar" />
+          <h2>{{ article.title }}</h2>
+          <p>{{ article.description }}</p>
+          <a href="{{ article.url }}">Read full article</a>
         </div>
       </div>
     </div>

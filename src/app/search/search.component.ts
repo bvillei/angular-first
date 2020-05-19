@@ -3,6 +3,7 @@ import {SearchService} from '../search.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subject, throwError} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, switchMap} from 'rxjs/operators';
+import {Article} from '../article';
 
 @Component({
   selector: 'app-search',
@@ -13,7 +14,7 @@ export class SearchComponent implements OnInit {
 
   public loading: boolean;
   public searchTerm = new Subject<string>();
-  public searchResults: any;
+  public searchResults: Article[];
   public errorMessage: any;
   public searchForm = new FormGroup({
     search: new FormControl('', Validators.required)
