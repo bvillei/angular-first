@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {of} from 'rxjs';
 
@@ -21,11 +21,11 @@ export class SearchService {
       return of(null);
     }
     else {
-      const params = {q: term};
-      return this.httpClient.get(this.baseUrl, {params}).pipe(
+      const params = new HttpParams().set('q', term);
+      return this.httpClient.get<any>(this.baseUrl, {params}).pipe(
         map(response => {
           console.log(response);
-          return this.searchResults = response["articles"];
+          return this.searchResults = response.articles;
         })
       );
     }
