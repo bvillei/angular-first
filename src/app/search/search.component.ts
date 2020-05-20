@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SearchService} from '../services/search.service';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Observable, Subject, throwError} from 'rxjs';
-import {catchError, debounceTime, distinctUntilChanged, map, switchMap} from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {Article} from '../models/article';
 import {Select, Store} from '@ngxs/store';
 import {SearchState} from '../store/search.state';
@@ -27,9 +26,10 @@ export class SearchComponent implements OnInit {
   @Select(SearchState.getErrorMessage) errorMessage$: Observable<string>;
 
   public searchTerm = new Subject<KeyboardEvent>();
+
   public search() {
     this.searchTerm.pipe(
-      map( (e: any) => {
+      map((e: any) => {
         console.log(e.target.value);
         return e.target.value;
       }),

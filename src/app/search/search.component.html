@@ -1,7 +1,8 @@
 <section>
   <form [formGroup]="searchForm">
     <label>
-      <input type="text" (keyup)="searchTerm.next($event)" [value]="searchTerm$|async" formControlName="search" placeholder="Search articles..."/>
+      <input type="text" (keyup)="searchTerm.next($event)" [value]="searchTerm$|async" formControlName="search"
+             placeholder="Search articles..."/>
 
       <div class="loading" *ngIf="loading$|async">
         <p class="search-message">Searching</p>
@@ -20,7 +21,7 @@
     <div class="results">
       <div class="article" *ngFor="let article of searchResults">
         <div>
-          <img loading="lazy" [attr.src]="article.urlToImage" alt="avatar" />
+          <img loading="lazy" [attr.src]="article.urlToImage" alt="avatar"/>
           <h2>{{ article.title }}</h2>
           <p>{{ article.description }}</p>
           <a href="{{ article.url }}">Read full article</a>

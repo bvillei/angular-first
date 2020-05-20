@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {of} from 'rxjs';
@@ -9,7 +9,8 @@ import {Article} from '../models/article';
 })
 export class SearchService {
 
-  constructor(private readonly httpClient: HttpClient) { }
+  constructor(private readonly httpClient: HttpClient) {
+  }
 
   API_KEY = 'e1dc0f2120e848189bf7d2db280eeea4';
   baseUrl = `https://newsapi.org/v2/everything?apiKey=${this.API_KEY}`;
@@ -20,8 +21,7 @@ export class SearchService {
     if (term === '') {
       console.log('Not defined');
       return of(null);
-    }
-    else {
+    } else {
       const params = new HttpParams().set('q', term);
       // TODO: keep any or change to article?
       return this.httpClient.get<any>(this.baseUrl, {params}).pipe(

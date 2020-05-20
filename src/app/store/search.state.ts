@@ -3,9 +3,8 @@ import {Injectable} from '@angular/core';
 import {SearchService} from '../services/search.service';
 import {Article} from '../models/article';
 import {Search, SearchComplete, SearchError} from './search.actions';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {FormGroup, Validators} from '@angular/forms';
 
 export interface SearchStateModel {
   loading: boolean;
