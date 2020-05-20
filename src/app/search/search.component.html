@@ -1,9 +1,9 @@
 <section>
   <form [formGroup]="searchForm">
     <label>
-      <input type="text" (keyup)="searchTerm.next($event)" formControlName="search" placeholder="Search articles..."/>
+      <input type="text" (keyup)="searchTerm.next($event)" [value]="searchTerm$|async" formControlName="search" placeholder="Search articles..."/>
 
-      <div class="loading" *ngIf="loading">
+      <div class="loading" *ngIf="loading$|async">
         <p class="search-message">Searching</p>
         <div class="lds-ellipsis">
           <div></div>
@@ -16,7 +16,7 @@
 
   </form>
 
-  <div *ngIf="searchResults">
+  <div *ngIf="searchResults$|async;let searchResults">
     <div class="results">
       <div class="article" *ngFor="let article of searchResults">
         <div>
@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div *ngIf="errorMessage" class="errorMessage">
+  <div *ngIf="errorMessage$|async;let errorMessage" class="errorMessage">
     <h2>Error</h2>
     <p class="error">{{errorMessage}}</p>
   </div>

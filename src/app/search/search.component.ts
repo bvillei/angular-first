@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {SearchService} from '../search.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {SearchService} from '../services/search.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subject, throwError} from 'rxjs';
+import {Observable, Subject, throwError} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, map, switchMap} from 'rxjs/operators';
-import {Article} from '../article';
+import {Article} from '../models/article';
+import {Select, Store} from '@ngxs/store';
+import {SearchState} from '../store/search.state';
+import {Search} from '../store/search.actions';
 
 @Component({
   selector: 'app-search',
@@ -11,17 +14,19 @@ import {Article} from '../article';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-
-  public loading: boolean;
-  public searchTerm = new Subject<string>();
-  public searchResults: Article[];
-  public errorMessage: any;
-  public searchForm = new FormGroup({
+  searchForm = new FormGroup({
     search: new FormControl('', Validators.required)
   });
 
-  constructor(private searchService: SearchService) { }
+  constructor(public store: Store) {
+  }
 
+  @Select(SearchState.getSearchTerm) searchTerm$: Observable<string>;
+  @Select(SearchState.getSearchResults) searchResults$: Observable<Article[]>;
+  @Select(SearchState.getLoading) loading$: Observable<boolean>;
+  @Select(SearchState.getErrorMessage) errorMessage$: Observable<string>;
+
+  public searchTerm = new Subject<KeyboardEvent>();
   public search() {
     this.searchTerm.pipe(
       map( (e: any) => {
@@ -30,19 +35,8 @@ export class SearchComponent implements OnInit {
       }),
       debounceTime(1000),
       distinctUntilChanged(),
-      switchMap(term => {
-        this.loading = true;
-        return this.searchService.searchEntries(term);
-      }),
-      catchError(err => {
-        console.log(err);
-        this.loading = false;
-        this.errorMessage = err.message;
-        return throwError(err);
-      }),
     ).subscribe(value => {
-      this.loading = false;
-      this.searchResults = value;
+      this.store.dispatch(new Search(value));
     });
   }
 

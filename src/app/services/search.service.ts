@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
-import {Article} from './article';
+import {of} from 'rxjs';
+import {Article} from '../models/article';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private readonly httpClient: HttpClient) { }
 
   API_KEY = 'e1dc0f2120e848189bf7d2db280eeea4';
   baseUrl = `https://newsapi.org/v2/everything?apiKey=${this.API_KEY}`;
