@@ -12,24 +12,18 @@ export class SearchService {
   constructor(private readonly httpClient: HttpClient) {
   }
 
-  API_KEY = 'e1dc0f2120e848189bf7d2db280eeea4';
+  API_KEY = 'a9a12ccd4ba7404e95f3cf75055f7a71';
   baseUrl = `https://newsapi.org/v2/everything?apiKey=${this.API_KEY}`;
   articles: Article[];
 
   // makes HTTP call to the api
   public searchEntries(term) {
-    if (term === '') {
-      console.log('Not defined');
-      return of(null);
-    } else {
-      const params = new HttpParams().set('q', term);
-      // TODO: keep any or change to article?
-      return this.httpClient.get<any>(this.baseUrl, {params}).pipe(
-        map(response => {
-          console.log(response);
-          return this.articles = response.articles;
-        })
-      );
-    }
+    const params = new HttpParams().set('q', term);
+    return this.httpClient.get<any>(this.baseUrl, {params}).pipe(
+      map(response => {
+        console.log(response);
+        return this.articles = response.articles;
+      })
+    );
   }
 }
