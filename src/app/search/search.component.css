@@ -32,43 +32,6 @@ input[type="text"] {
   padding-top: 40px;
 }
 
-.results {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.article {
-  width: 100%;
-  max-width: 400px;
-  border-radius: 10px;
-  margin: 10px;
-  background: rgb(243, 243, 243);
-  -webkit-box-shadow: 0px 10px 21px 0px rgba(214, 214, 214, 1);
-  -moz-box-shadow: 0px 10px 21px 0px rgba(214, 214, 214, 1);
-  box-shadow: 0px 10px 21px 0px rgba(214, 214, 214, 1);
-}
-
-.article img {
-  width: 400px;
-  height: auto;
-}
-
-.article h2 {
-  width: 90%;
-  margin: 0 auto;
-}
-
-.article p {
-  width: 90%;
-  margin: 15px auto;
-}
-
-.article a {
-  color: rgb(0, 155, 103);
-}
-
 .errorMessage h2 {
   color: red;
 }
