@@ -13,9 +13,6 @@ import {Search} from '../store/search.actions';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  searchForm = new FormGroup({
-    search: new FormControl('', Validators.required)
-  });
 
   constructor(public store: Store) {
   }
@@ -44,4 +41,7 @@ export class SearchComponent implements OnInit {
     this.search();
   }
 
+  public newSearch(newSearchTerm: any){
+    this.searchTerm.next(newSearchTerm);
+  }
 }

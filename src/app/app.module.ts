@@ -9,12 +9,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 import {environment} from '../environments/environment';
 import {SearchState} from './store/search.state';
+import { SearchInputComponent } from './search-input/search-input.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
+    SearchInputComponent,
     SearchResultsComponent
   ],
   imports: [

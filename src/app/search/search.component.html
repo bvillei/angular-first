@@ -1,8 +1,5 @@
 <section>
-  <form [formGroup]="searchForm">
-    <label>
-      <input type="text" (keyup)="searchTerm.next($event)" [value]="searchTerm$|async" formControlName="search"
-             placeholder="Search articles..."/>
+  <app-search-input [searchTerm]="searchTerm$|async" (searchEvent)="newSearch($event)"></app-search-input>
 
       <div class="loading" *ngIf="loading$|async">
         <p class="search-message">Searching</p>
@@ -13,9 +10,6 @@
           <div></div>
         </div>
       </div>
-    </label>
-
-  </form>
 
   <app-search-results [searchResults]="searchResults$|async"></app-search-results>
 
