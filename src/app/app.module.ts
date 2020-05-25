@@ -14,7 +14,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 @NgModule({
   declarations: [
     AppComponent,
-    SearchComponent
+    SearchComponent,
     SearchResultsComponent
   ],
   imports: [

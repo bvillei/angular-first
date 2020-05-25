@@ -17,18 +17,7 @@
 
   </form>
 
-  <div *ngIf="searchResults$|async;let searchResults">
-    <div class="results">
-      <div class="article" *ngFor="let article of searchResults">
-        <div>
-          <img loading="lazy" [attr.src]="article.urlToImage" alt="avatar"/>
-          <h2>{{ article.title }}</h2>
-          <p>{{ article.description }}</p>
-          <a href="{{ article.url }}">Read full article</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-search-results [searchResults]="searchResults$|async"></app-search-results>
 
   <div *ngIf="errorMessage$|async;let errorMessage" class="errorMessage">
     <h2>Error</h2>

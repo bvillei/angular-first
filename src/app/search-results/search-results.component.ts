@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Article} from '../models/article';
 
 @Component({
   selector: 'app-search-results',
@@ -9,8 +10,7 @@ export class SearchResultsComponent implements OnInit {
 
   constructor() { }
 
-  // Use @Input() for the list of results.
-  @Input() searchResults: any;
+  @Input() searchResults: Article[];
 
   ngOnInit(): void {
   }
