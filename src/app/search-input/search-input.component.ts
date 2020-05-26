@@ -13,7 +13,7 @@ export class SearchInputComponent implements OnInit {
     search: new FormControl('', Validators.required)
   });
 
-  @Input() searchTerm: any;
+  @Input() searchTerm: string;
   @Output() searchEvent = new EventEmitter();
 
   constructor() { }
@@ -21,7 +21,7 @@ export class SearchInputComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  inputChanged(event: any) {
+  inputChanged(event: KeyboardEvent) {
     this.searchEvent.emit(event);
   }
 
