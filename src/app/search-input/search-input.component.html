@@ -1,0 +1,9 @@
+<form [formGroup]="searchForm">
+  <label>
+    <input type="text"
+           (keyup)="inputChanged($event)"
+           [value]="searchTerm"
+           formControlName="search"
+           placeholder="Search articles..."/>
+  </label>
+</form>
