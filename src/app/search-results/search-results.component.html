@@ -2,7 +2,10 @@
   <div class="results">
     <div class="article" *ngFor="let article of searchResults">
       <div>
-        <img loading="lazy" [attr.src]="article.urlToImage" alt="avatar"/>
+        <img loading="lazy"
+             [attr.src]="article.urlToImage"
+             [routerLink]="['/detail', article.title]"
+             alt="avatar"/>
         <h2>{{ article.title }}</h2>
         <p>{{ article.description }}</p>
         <a href="{{ article.url }}">Read full article</a>

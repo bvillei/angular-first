@@ -11,13 +11,15 @@ import {environment} from '../environments/environment';
 import {SearchState} from './store/search.state';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { SearchResultDetailComponent } from './search-result-detail/search-result-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
     SearchInputComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    SearchResultDetailComponent
   ],
   imports: [
     BrowserModule,
