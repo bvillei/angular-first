@@ -1,11 +1,15 @@
 <div *ngIf="article">
   <div class="article">
-        <img loading="lazy"
-             [attr.src]="article.urlToImage"
-             [routerLink]="['/detail', article.title]"
-             alt="avatar"/>
-        <h2>{{ article.title }}</h2>
-        <p>{{ article.description }}</p>
-        <a href="{{ article.url }}">Read full article</a>
+    <h1>{{ article.title }}</h1>
+    <h4>{{ article.publishedAt|date }}</h4>
+    <img *ngIf="article.urlToImage" loading="lazy"
+         [attr.src]="article.urlToImage"
+         alt="avatar"/>
+    <p>{{ article.content }}</p>
+    <h5>Source: {{ article.source.name }}
+      <br>
+      Author: {{ article.author }}
+    </h5>
+    <a href="{{ article.url }}">Link to original source</a>
   </div>
 </div>
