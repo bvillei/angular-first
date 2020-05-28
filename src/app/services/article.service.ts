@@ -1,29 +1,26 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {Article} from '../models/article';
 import {environment} from '../../environments/environment';
+import {Article} from '../models/article';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SearchService {
+export class ArticleService {
 
-  constructor(private readonly httpClient: HttpClient) {
-  }
+  constructor(private readonly httpClient: HttpClient) { }
 
   baseUrl = `/api/everything?apiKey=${environment.API_KEY}`;
-  articles: Article[];
+  article: Article[];
 
-  // makes HTTP call to the api
-  public searchEntries(term) {
-    console.log(term.type);
-    const params = new HttpParams().set('qInTitle', term);
+  public getArticle(articleTitle: string) {
+    const params = new HttpParams().set('qInTitle', articleTitle);
     console.log(params);
     return this.httpClient.get<any>(this.baseUrl, {params}).pipe(
       map(response => {
         console.log(response);
-        return this.articles = response.articles;
+        return this.article = response.articles;
       })
     );
   }

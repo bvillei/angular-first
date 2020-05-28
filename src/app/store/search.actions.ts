@@ -14,3 +14,8 @@ export class SearchError {
   static readonly type = '[Article] Search Error';
   constructor(public payload: string) { }
 }
+
+export class GetArticle {
+  static readonly type = '[Article] Get';
+  constructor(public payload: string) { }
+}

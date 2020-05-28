@@ -12,6 +12,7 @@ import {SearchState} from './store/search.state';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { SearchResultDetailComponent } from './search-result-detail/search-result-detail.component';
+import { ArticleDetailComponent } from './article-detail/article-detail.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SearchResultDetailComponent } from './search-result-detail/search-resul
     SearchComponent,
     SearchInputComponent,
     SearchResultsComponent,
-    SearchResultDetailComponent
+    SearchResultDetailComponent,
+    ArticleDetailComponent
   ],
   imports: [
     BrowserModule,
