@@ -1,10 +1,10 @@
 <div *ngIf="searchResults">
   <div class="results">
     <div class="article" *ngFor="let article of searchResults">
-      <div>
-        <img loading="lazy"
+      <div [routerLink]="['/detail', article.title]">
+        <img *ngIf="article.urlToImage"
              [attr.src]="article.urlToImage"
-             [routerLink]="['/detail', article.title]"
+             loading="lazy"
              alt="avatar"/>
         <h2>{{ article.title }}</h2>
         <p>{{ article.description }}</p>

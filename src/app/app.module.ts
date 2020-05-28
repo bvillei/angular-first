@@ -11,8 +11,8 @@ import {environment} from '../environments/environment';
 import {SearchState} from './store/search.state';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
-import { SearchResultDetailComponent } from './search-result-detail/search-result-detail.component';
-import { ArticleDetailComponent } from './article-detail/article-detail.component';
+import { ArticleDetailsViewComponent } from './article-details-view/article-details-view.component';
+import { ArticleDetailsComponent } from './article-details/article-details.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +20,8 @@ import { ArticleDetailComponent } from './article-detail/article-detail.componen
     SearchComponent,
     SearchInputComponent,
     SearchResultsComponent,
-    SearchResultDetailComponent,
-    ArticleDetailComponent
+    ArticleDetailsViewComponent,
+    ArticleDetailsComponent
   ],
   imports: [
     BrowserModule,

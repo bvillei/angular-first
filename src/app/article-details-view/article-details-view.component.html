@@ -2,8 +2,9 @@
   <div class="article">
     <h1>{{ article.title }}</h1>
     <h4>{{ article.publishedAt|date }}</h4>
-    <img *ngIf="article.urlToImage" loading="lazy"
+    <img *ngIf="article.urlToImage"
          [attr.src]="article.urlToImage"
+         loading="lazy"
          alt="avatar"/>
     <p>{{ article.content }}</p>
     <h5>Source: {{ article.source.name }}

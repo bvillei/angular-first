@@ -15,11 +15,19 @@ export class SearchService {
   baseUrl = `/api/everything?apiKey=${environment.API_KEY}`;
   articles: Article[];
 
-  // makes HTTP call to the api
   public searchEntries(term) {
-    console.log(term.type);
-    const params = new HttpParams().set('qInTitle', term);
-    console.log(params);
+    const params = new HttpParams().set('q', term);
+    return this.httpClient.get<any>(this.baseUrl, {params}).pipe(
+      map(response => {
+        console.log(response);
+        return this.articles = response.articles;
+      })
+    );
+  }
+
+  public getArticle(articleTitle: string) {
+    // TODO: only q and qInTitle difference
+    const params = new HttpParams().set('qInTitle', articleTitle);
     return this.httpClient.get<any>(this.baseUrl, {params}).pipe(
       map(response => {
         console.log(response);
