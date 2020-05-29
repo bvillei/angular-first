@@ -19,3 +19,8 @@ export class GetArticle {
   static readonly type = '[Article] Get';
   constructor(public payload: string) { }
 }
+
+export class GetArticleComplete {
+  static readonly type = '[Article] Get Complete';
+  constructor(public payload: Article) { }
+}

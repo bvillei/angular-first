@@ -4,9 +4,9 @@ import {SearchComponent} from './search/search.component';
 import {ArticleDetailsComponent} from './article-details/article-details.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: '/search', pathMatch: 'full'},
   {path: 'search', component: SearchComponent},
-  {path: 'detail/:articleTitle', component: ArticleDetailsComponent},
-  {path: '', redirectTo: '/search', pathMatch: 'full'}
+  {path: 'detail/:articleTitle', component: ArticleDetailsComponent}
 ];
 
 @NgModule({

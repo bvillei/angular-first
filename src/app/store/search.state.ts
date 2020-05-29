@@ -2,7 +2,7 @@ import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Injectable} from '@angular/core';
 import {SearchService} from '../services/search.service';
 import {Article} from '../models/article';
-import {GetArticle, Search, SearchComplete, SearchError} from './search.actions';
+import {GetArticle, GetArticleComplete, Search, SearchComplete, SearchError} from './search.actions';
 import {catchError, map} from 'rxjs/operators';
 import {of} from 'rxjs';
 
@@ -11,6 +11,7 @@ export interface SearchStateModel {
   searchTerm: string;
   searchResults: Article[];
   errorMessage: string;
+  detailArticle: Article;
 }
 
 export const searchStateDefaults: SearchStateModel = {
@@ -18,6 +19,7 @@ export const searchStateDefaults: SearchStateModel = {
   searchTerm: '',
   searchResults: [],
   errorMessage: '',
+  detailArticle: null
 };
 
 @State<SearchStateModel>({
@@ -34,9 +36,16 @@ export class SearchState {
     return state.searchResults;
   }
 
+  // @Selector([SearchState])
+  // static getFirstArticle(state: SearchStateModel) {
+  //   // check elements, return null..
+  //   // Array.isArray();
+  //   return state.searchResults[0];
+  // }
+
   @Selector([SearchState])
-  static getFirstArticle(state: SearchStateModel) {
-    return state.searchResults[0];
+  static getDetailArticle(state: SearchStateModel) {
+    return state.detailArticle;
   }
 
   @Selector([SearchState])
@@ -114,14 +123,25 @@ export class SearchState {
     {dispatch, patchState}: StateContext<SearchStateModel>,
     action: GetArticle
   ) {
-    // TODO: only the service function call is different (getArticle)
     return this.searchService.getArticle(action.payload).pipe(
-      map((articles: Article[]) => dispatch(new SearchComplete(articles))),
+      map((article: Article) => dispatch(new GetArticleComplete(article))),
       catchError(err => {
         dispatch(new SearchError(err.error.error.message));
         return of(new SearchError(err));
       })
     );
+  }
+
+  @Action(GetArticleComplete)
+  getArticleComplete(
+    {patchState}: StateContext<SearchStateModel>,
+    action: GetArticleComplete
+  ) {
+    patchState({
+      detailArticle: action.payload,
+      loading: false,
+      errorMessage: '',
+    });
   }
 }
 

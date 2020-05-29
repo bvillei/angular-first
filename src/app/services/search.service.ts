@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {first, map} from 'rxjs/operators';
 import {Article} from '../models/article';
 import {environment} from '../../environments/environment';
+import {ApiResponse} from '../models/api-response';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +16,11 @@ export class SearchService {
 
   baseUrl = `/api/everything?apiKey=${environment.API_KEY}`;
   articles: Article[];
+  detailArticle: Article;
 
-  public searchEntries(term) {
+  public searchEntries(term: string): Observable<Article[]> {
     const params = new HttpParams().set('q', term);
-    return this.httpClient.get<any>(this.baseUrl, {params}).pipe(
+    return this.httpClient.get<ApiResponse>(this.baseUrl, {params}).pipe(
       map(response => {
         console.log(response);
         return this.articles = response.articles;
@@ -25,13 +28,16 @@ export class SearchService {
     );
   }
 
-  public getArticle(articleTitle: string) {
-    // TODO: only q and qInTitle difference
+  public getArticle(articleTitle: string): Observable<Article> {
     const params = new HttpParams().set('qInTitle', articleTitle);
-    return this.httpClient.get<any>(this.baseUrl, {params}).pipe(
+    return this.httpClient.get<ApiResponse>(this.baseUrl, {params}).pipe(
       map(response => {
-        console.log(response);
-        return this.articles = response.articles;
+        if (response.articles.length === 0) {
+          // TODO: fix this to error
+          return null;
+        }
+        console.log(response.articles[0]);
+        return this.detailArticle = response.articles[0];
       })
     );
   }
