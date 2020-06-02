@@ -15,8 +15,6 @@ import {ActionContext} from '@ngxs/store/src/actions-stream';
 })
 export class ArticleDetailsComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription;
-
   constructor(public store: Store) { }
 
   @Select(SearchState.getDetailArticle) article$: Observable<Article>;
@@ -27,7 +25,6 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
 }

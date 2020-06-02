@@ -4,7 +4,7 @@ import {first, map} from 'rxjs/operators';
 import {Article} from '../models/article';
 import {environment} from '../../environments/environment';
 import {ApiResponse} from '../models/api-response';
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +33,7 @@ export class SearchService {
     return this.httpClient.get<ApiResponse>(this.baseUrl, {params}).pipe(
       map(response => {
         if (response.articles.length === 0) {
-          // TODO: fix this to error
-          return null;
+          throw new Error('This article not exists');
         }
         console.log(response.articles[0]);
         return this.detailArticle = response.articles[0];

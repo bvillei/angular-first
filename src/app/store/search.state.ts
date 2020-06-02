@@ -2,10 +2,9 @@ import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Injectable} from '@angular/core';
 import {SearchService} from '../services/search.service';
 import {Article} from '../models/article';
-import {GetArticle, GetArticleComplete, ResetArticle, Search, SearchComplete, SearchError} from './search.actions';
-import {catchError, delay, map, tap} from 'rxjs/operators';
+import {GetArticle, ResetArticle, Search, SearchComplete, SearchError} from './search.actions';
+import {catchError, map, tap} from 'rxjs/operators';
 import {of, throwError} from 'rxjs';
-import {patch} from '@ngxs/store/operators';
 
 export interface SearchStateModel {
   loading: boolean;
@@ -40,13 +39,6 @@ export class SearchState {
   static getSearchResults(state: SearchStateModel) {
     return state.searchResults;
   }
-
-  // @Selector([SearchState])
-  // static getFirstArticle(state: SearchStateModel) {
-  //   // check elements, return null..
-  //   // Array.isArray();
-  //   return state.searchResults[0];
-  // }
 
   @Selector([SearchState])
   static getDetailArticle(state: SearchStateModel) {
@@ -152,11 +144,11 @@ export class SearchState {
         });
       }),
       catchError(err => {
+        console.log(err);
         let errorMessage = 'An unknown exception occurred :(';
         try {
           errorMessage = err.error.message;
-        } catch (ex) {}
-
+        } catch (ex) { }
         action.lastError = errorMessage;
         patchState({
           detailLoading: false,
@@ -166,7 +158,6 @@ export class SearchState {
       })
     );
   }
-
 
   @Action(ResetArticle)
   resetArticle(

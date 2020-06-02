@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: 'detail/:articleTitle',
     resolve: {
-      something: ArticleDetailsResolve
+      ArticleDetailsResolve
     },
     component: ArticleDetailsComponent
   }

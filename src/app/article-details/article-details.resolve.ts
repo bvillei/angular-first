@@ -1,16 +1,17 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
-import {Observable, timer} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Store} from '@ngxs/store';
 import {GetArticle} from '../store/search.actions';
+import {Article} from '../models/article';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ArticleDetailsResolve implements Resolve<any> {
+export class ArticleDetailsResolve implements Resolve<Article> {
   constructor(private store: Store) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
-    this.store.dispatch(new GetArticle(route.paramMap.get('articleTitle')));
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Article> | Promise<Article> | Article {
+    return this.store.dispatch(new GetArticle(route.paramMap.get('articleTitle')));
   }
 }

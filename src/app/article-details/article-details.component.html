@@ -1,3 +1,5 @@
+<a routerLink="/search">Go back to search</a>
+
 <div *ngIf="!(loading$ | async); else loadingTemplate">
   <app-article-details-view [article]="article$|async"></app-article-details-view>
 </div>
