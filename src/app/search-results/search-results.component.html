@@ -1,7 +1,7 @@
 <div *ngIf="searchResults">
   <div class="results">
     <div class="article" *ngFor="let article of searchResults">
-      <div [routerLink]="['/detail', article.title]">
+      <div (click)="articleClicked.emit(article)">
         <img *ngIf="article.urlToImage"
              [attr.src]="article.urlToImage"
              loading="lazy"

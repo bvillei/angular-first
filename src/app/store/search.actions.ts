@@ -17,7 +17,13 @@ export class SearchError {
 
 export class GetArticle {
   static readonly type = '[Article] Get';
+  public lastError: any;
   constructor(public payload: string) { }
+}
+
+export class ResetArticle {
+  static readonly type = '[Article] Reset';
+  constructor() { }
 }
 
 export class GetArticleComplete {

@@ -2,9 +2,10 @@ import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Injectable} from '@angular/core';
 import {SearchService} from '../services/search.service';
 import {Article} from '../models/article';
-import {GetArticle, GetArticleComplete, Search, SearchComplete, SearchError} from './search.actions';
-import {catchError, map} from 'rxjs/operators';
-import {of} from 'rxjs';
+import {GetArticle, GetArticleComplete, ResetArticle, Search, SearchComplete, SearchError} from './search.actions';
+import {catchError, delay, map, tap} from 'rxjs/operators';
+import {of, throwError} from 'rxjs';
+import {patch} from '@ngxs/store/operators';
 
 export interface SearchStateModel {
   loading: boolean;
@@ -12,6 +13,8 @@ export interface SearchStateModel {
   searchResults: Article[];
   errorMessage: string;
   detailArticle: Article;
+  detailLoading: boolean;
+  detailErrorMessage: string;
 }
 
 export const searchStateDefaults: SearchStateModel = {
@@ -19,7 +22,9 @@ export const searchStateDefaults: SearchStateModel = {
   searchTerm: '',
   searchResults: [],
   errorMessage: '',
-  detailArticle: null
+  detailArticle: null,
+  detailLoading: false,
+  detailErrorMessage: ''
 };
 
 @State<SearchStateModel>({
@@ -63,10 +68,20 @@ export class SearchState {
     return state.errorMessage;
   }
 
+  @Selector([SearchState])
+  static getDetailLoading(state: SearchStateModel) {
+    return state.detailLoading;
+  }
+
+  @Selector([SearchState])
+  static getDetailErrorMessage(state: SearchStateModel) {
+    return state.detailErrorMessage;
+  }
+
   @Action(Search, {cancelUncompleted: true})
   search(
     {dispatch, patchState}: StateContext<SearchStateModel>,
-    action: Search
+    action: Search,
   ) {
     const searchTerm = action.payload;
 
@@ -98,7 +113,7 @@ export class SearchState {
   @Action(SearchComplete)
   searchComplete(
     {patchState}: StateContext<SearchStateModel>,
-    action: SearchComplete
+    action: SearchComplete,
   ) {
     patchState({
       searchResults: action.payload,
@@ -110,7 +125,7 @@ export class SearchState {
   @Action(SearchError)
   searchError(
     {patchState}: StateContext<SearchStateModel>,
-    action: SearchError
+    action: SearchError,
   ) {
     patchState({
       loading: false,
@@ -118,29 +133,49 @@ export class SearchState {
     });
   }
 
-  @Action(GetArticle)
+  @Action(GetArticle, {cancelUncompleted: true})
   getArticle(
     {dispatch, patchState}: StateContext<SearchStateModel>,
-    action: GetArticle
+    action: GetArticle,
   ) {
+    patchState({
+      detailLoading: true,
+      detailErrorMessage: '',
+      detailArticle: null // optional
+    });
     return this.searchService.getArticle(action.payload).pipe(
-      map((article: Article) => dispatch(new GetArticleComplete(article))),
+      tap((article: Article) => {
+        patchState({
+          detailArticle: article,
+          detailErrorMessage: '',
+          detailLoading: false
+        });
+      }),
       catchError(err => {
-        dispatch(new SearchError(err.error.error.message));
-        return of(new SearchError(err));
+        let errorMessage = 'An unknown exception occurred :(';
+        try {
+          errorMessage = err.error.message;
+        } catch (ex) {}
+
+        action.lastError = errorMessage;
+        patchState({
+          detailLoading: false,
+          detailErrorMessage: errorMessage
+        });
+        return throwError(errorMessage);
       })
     );
   }
 
-  @Action(GetArticleComplete)
-  getArticleComplete(
-    {patchState}: StateContext<SearchStateModel>,
-    action: GetArticleComplete
+
+  @Action(ResetArticle)
+  resetArticle(
+    {patchState}: StateContext<SearchStateModel>
   ) {
     patchState({
-      detailArticle: action.payload,
-      loading: false,
-      errorMessage: '',
+      detailLoading: false,
+      detailErrorMessage: '',
+      detailArticle: null
     });
   }
 }

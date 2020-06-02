@@ -11,7 +11,19 @@
     </div>
   </div>
 
-  <app-search-results [searchResults]="searchResults$|async"></app-search-results>
+  <!--<div *ngIf="detail$|async; let detail; else search">
+
+    <a (click)="resetDetail()">Back to search results</a>
+    <app-article-details-view [article]="detail">
+    </app-article-details-view>
+  </div>-->
+
+  <!--<ng-template #search>-->
+    <app-search-results
+      [searchResults]="searchResults$|async"
+      (articleClicked)="handleArticleClicked($event)"
+    ></app-search-results>
+  <!--</ng-template>-->
 
   <div *ngIf="errorMessage$|async;let errorMessage" class="errorMessage">
     <h2>Error</h2>

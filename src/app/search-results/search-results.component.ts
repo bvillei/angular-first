@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Article} from '../models/article';
 
 @Component({
@@ -11,6 +11,8 @@ export class SearchResultsComponent implements OnInit {
   constructor() { }
 
   @Input() searchResults: Article[];
+
+  @Output() articleClicked = new EventEmitter<Article>();
 
   ngOnInit(): void {
   }

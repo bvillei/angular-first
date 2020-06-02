@@ -1,10 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Select, Store} from '@ngxs/store';
+import {Actions, ofActionDispatched, ofActionErrored, ofActionSuccessful, Select, Store} from '@ngxs/store';
 import {SearchState} from '../store/search.state';
 import {Observable, Subscription} from 'rxjs';
 import {Article} from '../models/article';
 import {GetArticle} from '../store/search.actions';
+import {delay} from 'rxjs/operators';
+import {ActionContext} from '@ngxs/store/src/actions-stream';
 
 @Component({
   selector: 'app-article-details',
@@ -14,19 +16,14 @@ import {GetArticle} from '../store/search.actions';
 export class ArticleDetailsComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
-  articleTitle: string;
 
-  constructor(public route: ActivatedRoute,
-              public store: Store) { }
+  constructor(public store: Store) { }
 
   @Select(SearchState.getDetailArticle) article$: Observable<Article>;
+  @Select(SearchState.getDetailLoading) loading$: Observable<boolean>;
+  @Select(SearchState.getDetailErrorMessage) errorMessage$: Observable<string>;
 
   ngOnInit(): void {
-    this.subscription = this.route.params.subscribe(params => {
-      this.articleTitle = params.articleTitle;
-      console.log(this.articleTitle);
-      this.store.dispatch(new GetArticle(this.articleTitle));
-    });
   }
 
   ngOnDestroy(): void {

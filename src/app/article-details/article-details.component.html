@@ -1,1 +1,12 @@
-<app-article-details-view [article]="article$|async"></app-article-details-view>
+<div *ngIf="!(loading$ | async); else loadingTemplate">
+  <app-article-details-view [article]="article$|async"></app-article-details-view>
+</div>
+
+<ng-template #loadingTemplate>
+  <div>Loading ...</div>
+</ng-template>
+
+<div *ngIf="errorMessage$ | async; let errorMessage" class="errorMessage">
+  <h2>Error</h2>
+  <p class="error">{{errorMessage}}</p>
+</div>
